@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Регистрация — КнигоМир</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo">📚 КнигоМир</a>
+      <nav class="nav">
+        <a href="index.html" class="nav__link">Главная</a>
+        <a href="catalog.html" class="nav__link">Каталог</a>
+        <a href="login.html" class="nav__link">Вход</a>
+        <a href="register.html" class="nav__link nav__link--btn nav__link--active">Регистрация</a>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">🌙</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <form class="form" id="registerForm" novalidate>
+      <h1 class="form__title">Регистрация</h1>
+
+      <div class="form__group">
+        <label for="fullName" class="form__label">ФИО</label>
+        <input type="text" id="fullName" name="fullName" class="input" required>
+        <span class="form__error" data-error-for="fullName"></span>
+      </div>
+
+      <div class="form__group">
+        <label for="email" class="form__label">Email</label>
+        <input type="email" id="email" name="email" class="input" required>
+        <span class="form__error" data-error-for="email"></span>
+      </div>
+
+      <div class="form__group">
+        <label for="login" class="form__label">Логин</label>
+        <input type="text" id="login" name="login" class="input" required>
+        <span class="form__error" data-error-for="login"></span>
+      </div>
+
+      <div class="form__group">
+        <label for="password" class="form__label">Пароль</label>
+        <div class="password-wrapper">
+          <input type="password" id="password" name="password" class="input" required>
+          <button type="button" class="password-toggle" data-toggle="password">👁</button>
+        </div>
+        <span class="form__error" data-error-for="password"></span>
+      </div>
+
+      <div class="form__group">
+        <label for="passwordRepeat" class="form__label">Повтор пароля</label>
+        <div class="password-wrapper">
+          <input type="password" id="passwordRepeat" name="passwordRepeat" class="input" required>
+          <button type="button" class="password-toggle" data-toggle="passwordRepeat">👁</button>
+        </div>
+        <span class="form__error" data-error-for="passwordRepeat"></span>
+      </div>
+
+      <button type="submit" class="btn btn--primary btn--full">Зарегистрироваться</button>
+
+      <p class="form__message" id="formMessage" hidden></p>
+      <p class="form__hint">Уже есть аккаунт? <a href="login.html">Войти</a></p>
+    </form>
+  </main>
+
+  <footer class="footer">
+    <div class="container"><p>© 2026 КнигоМир. Учебный проект.</p></div>
+  </footer>
+
+  <script src="js/validation.js"></script>
+</body>
+</html>

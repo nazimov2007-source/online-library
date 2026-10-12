@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вход — КнигоМир</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo">📚 КнигоМир</a>
+      <nav class="nav">
+        <a href="index.html" class="nav__link">Главная</a>
+        <a href="catalog.html" class="nav__link">Каталог</a>
+        <a href="login.html" class="nav__link nav__link--active">Вход</a>
+        <a href="register.html" class="nav__link nav__link--btn">Регистрация</a>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">🌙</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <form class="form" id="loginForm" novalidate>
+      <h1 class="form__title">Вход</h1>
+
+      <div class="form__group">
+        <label for="loginName" class="form__label">Логин</label>
+        <input type="text" id="loginName" name="login" class="input" required>
+        <span class="form__error" data-error-for="loginName"></span>
+      </div>
+
+      <div class="form__group">
+        <label for="loginPassword" class="form__label">Пароль</label>
+        <div class="password-wrapper">
+          <input type="password" id="loginPassword" name="password" class="input" required>
+          <button type="button" class="password-toggle" data-toggle="loginPassword">👁</button>
+        </div>
+        <span class="form__error" data-error-for="loginPassword"></span>
+      </div>
+
+      <button type="submit" class="btn btn--primary btn--full">Войти</button>
+
+      <p class="form__message" id="loginMessage" hidden></p>
+      <p class="form__hint">Нет аккаунта? <a href="register.html">Зарегистрироваться</a></p>
+    </form>
+  </main>
+
+  <footer class="footer">
+    <div class="container"><p>© 2026 КнигоМир. Учебный проект.</p></div>
+  </footer>
+
+  <script src="js/validation.js"></script>
+</body>
+</html>
