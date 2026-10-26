@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Добавить книгу</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <main class="container">
+    <form action="/add" method="POST" class="form">
+      <h1 class="form__title">Добавить книгу</h1>
+      
+      <% if (error) { %>
+        <p class="form__message form__message--error"><%= error %></p>
+      <% } %>
+
+      <div class="form__group">
+        <label class="form__label">Название</label>
+        <input type="text" name="title" class="input" required>
+      </div>
+      <div class="form__group">
+        <label class="form__label">Автор</label>
+        <input type="text" name="author" class="input" required>
+      </div>
+      <div class="form__group">
+        <label class="form__label">Цена</label>
+        <input type="number" name="price" class="input" required min="1">
+      </div>
+      <div class="form__group">
+        <label class="form__label">Жанр</label>
+        <select name="genre_id" class="input">
+          <% genres.forEach(g => { %>
+            <option value="<%= g.id %>"><%= g.name %></option>
+          <% }) %>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn--primary btn--full">Сохранить</button>
+      <p class="form__hint"><a href="/catalog">← Назад в каталог</a></p>
+    </form>
+  </main>
+</body>
+</html>

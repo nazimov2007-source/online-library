@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Каталог — КнигоМир</title>
+  <!-- Обрати внимание на косую черту в начале пути к CSS (это важно для Express) -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="/" class="logo">📚 КнигоМир</a>
+      <nav class="nav">
+        <a href="/" class="nav__link">Главная</a>
+        <a href="/catalog" class="nav__link nav__link--active">Каталог</a>
+        <a href="/login" class="nav__link">Вход</a>
+        <a href="/register" class="nav__link nav__link--btn">Регистрация</a>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">🌙</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 class="section-title">Каталог книг</h1>
+
+    <div class="catalog">
+      <!-- EJS цикл: перебираем массив books, который пришел из сервера (из базы данных) -->
+      <% books.forEach(book => { %>
+          <article class="book-card">
+              <div class="book-card__cover">📖</div>
+              <div class="book-card__body">
+                  <h3 class="book-card__title"><%= book.title %></h3>
+                  <p class="book-card__author"><%= book.author %></p>
+                  <span class="book-card__genre"><%= book.genre_name %></span>
+                  <p class="book-card__price"><%= book.price %> ₽</p>
+                  
+                  <!-- Кнопки управления для каждой книги -->
+                  <div style="display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap;">
+                      <a href="/book/<%= book.id %>" class="btn btn--primary" style="padding: 6px 12px; font-size: 13px;">Открыть</a>
+                      <a href="/edit/<%= book.id %>" class="btn" style="padding: 6px 12px; font-size: 13px; border: 1px solid #ccc; background: transparent; color: inherit;">Изменить</a>
+                      <a href="/delete/<%= book.id %>" class="btn" style="padding: 6px 12px; font-size: 13px; color: #dc2626;" onclick="return confirm('Удалить книгу?')">Удалить</a>
+                  </div>
+              </div>
+          </article>
+      <% }) %>
+    </div>
+
+    <!-- Кнопка добавления новой книги -->
+    <div style="text-align: center; margin: 20px 0 40px 0;">
+        <a href="/add" class="btn btn--primary">+ Добавить книгу</a>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container"><p>© 2026 КнигоМир.</p></div>
+  </footer>
+  
+  <!-- Подключаем скрипт для работы тёмной темы (он остался у тебя в папке public или js) -->
+  <script src="/js/validation.js"></script>
+</body>
+</html>

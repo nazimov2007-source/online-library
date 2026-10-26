@@ -4,17 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Регистрация — КнигоМир</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <header class="header">
     <div class="container header__inner">
-      <a href="index.html" class="logo">📚 КнигоМир</a>
+      <!-- Все ссылки теперь ведут на серверные маршруты (без .html) -->
+      <a href="/" class="logo">📚 КнигоМир</a>
       <nav class="nav">
-        <a href="index.html" class="nav__link">Главная</a>
-        <a href="catalog.html" class="nav__link">Каталог</a>
-        <a href="login.html" class="nav__link">Вход</a>
-        <a href="register.html" class="nav__link nav__link--btn nav__link--active">Регистрация</a>
+        <a href="/" class="nav__link">Главная</a>
+        <a href="/catalog" class="nav__link">Каталог</a>
+        <a href="/login" class="nav__link">Вход</a>
+        <a href="/register" class="nav__link nav__link--btn nav__link--active">Регистрация</a>
       </nav>
       <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">🌙</button>
     </div>
@@ -63,14 +64,15 @@
       <button type="submit" class="btn btn--primary btn--full">Зарегистрироваться</button>
 
       <p class="form__message" id="formMessage" hidden></p>
-      <p class="form__hint">Уже есть аккаунт? <a href="login.html">Войти</a></p>
+      <p class="form__hint">Уже есть аккаунт? <a href="/login">Войти</a></p>
     </form>
   </main>
 
   <footer class="footer">
-    <div class="container"><p>© 2026 КнигоМир. Учебный проект.</p></div>
+    <div class="container"><p>© 2026 КнигоМир.</p></div>
   </footer>
 
-  <script src="js/validation.js"></script>
+  <!-- Скрипт тоже ведет на серверный путь /js/ -->
+  <script src="/js/validation.js"></script>
 </body>
 </html>

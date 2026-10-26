@@ -28,7 +28,7 @@ function initRegisterForm() {
 
     clearErrors(form);
     message.hidden = false;
-    message.textContent = '✅ Регистрация прошла успешно! (демо)';
+    message.textContent = '✅ Регистрация прошла успешно!';
     message.className = 'form__message form__message--success';
     form.reset();
   });
@@ -88,7 +88,7 @@ function initLoginForm() {
     clearErrors(form);
     if (message) {
       message.hidden = false;
-      message.textContent = '✅ Вход выполнен! (демо)';
+      message.textContent = '✅ Вход выполнен!';
       message.className = 'form__message form__message--success';
     }
     form.reset();

@@ -99,6 +99,16 @@ app.get('/delete/:id', (req, res) => {
     res.redirect('/catalog');
 });
 
+// ================= ДОПОЛНИТЕЛЬНО (для кнопок из ЛР №1) =================
+// Добавляем страницы Входа и Регистрации, чтобы ссылки не выдавали ошибку
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+
+app.get('/register', (req, res) => {
+    res.render('register');
+});
+
 // Запуск сервера
 app.listen(PORT, () => {
     console.log(`Сервер запущен: http://localhost:${PORT}/catalog`);

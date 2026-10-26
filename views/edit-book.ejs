@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Редактировать</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <main class="container">
+    <form action="/edit/<%= book.id %>" method="POST" class="form">
+      <h1 class="form__title">Редактировать: <%= book.title %></h1>
+      
+      <div class="form__group">
+        <label class="form__label">Название</label>
+        <input type="text" name="title" class="input" value="<%= book.title %>" required>
+      </div>
+      <div class="form__group">
+        <label class="form__label">Автор</label>
+        <input type="text" name="author" class="input" value="<%= book.author %>" required>
+      </div>
+      <div class="form__group">
+        <label class="form__label">Цена</label>
+        <input type="number" name="price" class="input" value="<%= book.price %>" required>
+      </div>
+
+      <button type="submit" class="btn btn--primary btn--full">Обновить</button>
+      <p class="form__hint"><a href="/catalog">← Отмена</a></p>
+    </form>
+  </main>
+</body>
+</html>

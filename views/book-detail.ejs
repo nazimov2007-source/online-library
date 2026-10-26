@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title><%= book.title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <main class="container" style="margin-top: 40px;">
+    <div class="form" style="text-align: center;">
+      <div class="book-card__cover" style="border-radius: 12px; font-size: 5rem; height: auto; padding: 20px;">📖</div>
+      <h1 class="form__title"><%= book.title %></h1>
+      <p style="margin-bottom: 10px;"><b>Автор:</b> <%= book.author %></p>
+      <p style="margin-bottom: 10px;"><b>Жанр:</b> <span class="book-card__genre" style="display: inline-block;"><%= book.genre_name %></span></p>
+      <p style="margin-bottom: 20px;"><b>Цена:</b> <%= book.price %> ₽</p>
+      
+      <a href="/catalog" class="btn btn--primary btn--full">← Назад в каталог</a>
+    </div>
+  </main>
+</body>
+</html>

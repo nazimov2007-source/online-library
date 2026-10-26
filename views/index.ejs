@@ -4,17 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>КнигоМир — онлайн-библиотека</title>
-  <link rel="stylesheet" href="css/style.css">
+  <!-- Исправлен путь к CSS -->
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <header class="header">
     <div class="container header__inner">
-      <a href="index.html" class="logo">📚 КнигоМир</a>
+      <!-- Ссылки на серверные маршруты -->
+      <a href="/" class="logo">📚 КнигоМир</a>
       <nav class="nav">
-        <a href="index.html" class="nav__link nav__link--active">Главная</a>
-        <a href="catalog.html" class="nav__link">Каталог</a>
-        <a href="login.html" class="nav__link">Вход</a>
-        <a href="register.html" class="nav__link nav__link--btn">Регистрация</a>
+        <a href="/" class="nav__link nav__link--active">Главная</a>
+        <a href="/catalog" class="nav__link">Каталог</a>
+        <a href="/login" class="nav__link">Вход</a>
+        <a href="/register" class="nav__link nav__link--btn">Регистрация</a>
       </nav>
       <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">🌙</button>
     </div>
@@ -28,7 +30,8 @@
           Тысячи книг в одном месте. Читайте онлайн, сохраняйте в избранное
           и открывайте для себя новых авторов.
         </p>
-        <a href="catalog.html" class="btn btn--primary">Перейти в каталог</a>
+        <!-- Ссылка на каталог -->
+        <a href="/catalog" class="btn btn--primary">Перейти в каталог</a>
       </div>
     </section>
 
@@ -53,10 +56,11 @@
 
   <footer class="footer">
     <div class="container">
-      <p>© 2026 КнигоМир. Учебный проект.</p>
+      <p>© 2026 КнигоМир.</p>
     </div>
   </footer>
 
-  <script src="js/validation.js"></script>
+  <!-- Исправлен путь к JS -->
+  <script src="/js/validation.js"></script>
 </body>
 </html>
