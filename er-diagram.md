@@ -1,3 +1,4 @@
+```mermaid
 erDiagram
     GENRES {
         integer id PK
@@ -11,3 +12,4 @@ erDiagram
         integer genre_id FK
     }
     GENRES ||--o{ BOOKS : "содержит"
+```
