@@ -4,19 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>КнигоМир — онлайн-библиотека</title>
-  <!-- Исправлен путь к CSS -->
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <header class="header">
     <div class="container header__inner">
-      <!-- Ссылки на серверные маршруты -->
       <a href="/" class="logo">📚 КнигоМир</a>
       <nav class="nav">
         <a href="/" class="nav__link nav__link--active">Главная</a>
         <a href="/catalog" class="nav__link">Каталог</a>
-        <a href="/login" class="nav__link">Вход</a>
-        <a href="/register" class="nav__link nav__link--btn">Регистрация</a>
+        
+        <!-- Проверка: если пользователь вошел, показываем профиль и кнопку выхода -->
+        <% if (user) { %>
+            <span class="nav__link" style="color: var(--primary); font-weight: bold;">👤 <%= user.login %> (<%= user.role %>)</span>
+            <a href="/logout" class="nav__link nav__link--btn" style="background: #dc2626;">Выйти</a>
+        <% } else { %>
+            <a href="/login" class="nav__link">Вход</a>
+            <a href="/register" class="nav__link nav__link--btn">Регистрация</a>
+        <% } %>
       </nav>
       <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">🌙</button>
     </div>
@@ -60,7 +65,6 @@
     </div>
   </footer>
 
-  <!-- Исправлен путь к JS -->
   <script src="/js/validation.js"></script>
 </body>
 </html>

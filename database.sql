@@ -26,3 +26,23 @@ INSERT INTO books (title, author, price, genre_id) VALUES
 ('Дюна', 'Ф. Герберт', 720, 2),
 ('Шерлок Холмс', 'А. Конан Дойл', 480, 3),
 ('Гарри Поттер', 'Дж. Роулинг', 950, 4);
+-- Таблица пользователей (роли: USER, ADMIN)
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fullname TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    login TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    role TEXT DEFAULT 'USER'
+);
+
+-- Таблица заявок на книги
+CREATE TABLE IF NOT EXISTS requests (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    book_id INTEGER NOT NULL,
+    status TEXT DEFAULT 'Новая',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
+);

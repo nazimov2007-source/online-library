@@ -9,7 +9,6 @@
 <body>
   <header class="header">
     <div class="container header__inner">
-      <!-- Все ссылки теперь ведут на серверные маршруты (без .html) -->
       <a href="/" class="logo">📚 КнигоМир</a>
       <nav class="nav">
         <a href="/" class="nav__link">Главная</a>
@@ -22,25 +21,28 @@
   </header>
 
   <main class="container">
-    <form class="form" id="registerForm" novalidate>
+    <!-- Добавили action="/register" method="POST" и убрали novalidate -->
+    <form class="form" id="registerForm" action="/register" method="POST">
       <h1 class="form__title">Регистрация</h1>
+
+      <!-- Вывод ошибок от сервера -->
+      <% if (typeof error !== 'undefined' && error) { %>
+        <p class="form__message form__message--error"><%= error %></p>
+      <% } %>
 
       <div class="form__group">
         <label for="fullName" class="form__label">ФИО</label>
         <input type="text" id="fullName" name="fullName" class="input" required>
-        <span class="form__error" data-error-for="fullName"></span>
       </div>
 
       <div class="form__group">
         <label for="email" class="form__label">Email</label>
         <input type="email" id="email" name="email" class="input" required>
-        <span class="form__error" data-error-for="email"></span>
       </div>
 
       <div class="form__group">
         <label for="login" class="form__label">Логин</label>
         <input type="text" id="login" name="login" class="input" required>
-        <span class="form__error" data-error-for="login"></span>
       </div>
 
       <div class="form__group">
@@ -49,7 +51,6 @@
           <input type="password" id="password" name="password" class="input" required>
           <button type="button" class="password-toggle" data-toggle="password">👁</button>
         </div>
-        <span class="form__error" data-error-for="password"></span>
       </div>
 
       <div class="form__group">
@@ -58,12 +59,10 @@
           <input type="password" id="passwordRepeat" name="passwordRepeat" class="input" required>
           <button type="button" class="password-toggle" data-toggle="passwordRepeat">👁</button>
         </div>
-        <span class="form__error" data-error-for="passwordRepeat"></span>
       </div>
 
       <button type="submit" class="btn btn--primary btn--full">Зарегистрироваться</button>
 
-      <p class="form__message" id="formMessage" hidden></p>
       <p class="form__hint">Уже есть аккаунт? <a href="/login">Войти</a></p>
     </form>
   </main>
@@ -72,7 +71,40 @@
     <div class="container"><p>© 2026 КнигоМир.</p></div>
   </footer>
 
-  <!-- Скрипт тоже ведет на серверный путь /js/ -->
-  <script src="/js/validation.js"></script>
+<script>
+    // Показ/скрытие пароля
+    document.querySelectorAll('[data-toggle]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetId = btn.getAttribute('data-toggle');
+            const input = document.getElementById(targetId);
+            if (input) {
+                input.type = input.type === 'password' ? 'text' : 'password';
+                btn.textContent = input.type === 'password' ? '👁' : '🙈';
+            }
+        });
+    });
+
+    // Тёмная тема
+    const themeBtn = document.getElementById('themeToggle');
+    if (themeBtn) {
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeBtn.textContent = '☀️';
+        }
+        themeBtn.addEventListener('click', () => {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            if (isDark) {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+                themeBtn.textContent = '🌙';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                themeBtn.textContent = '☀️';
+            }
+        });
+    }
+</script>
+
 </body>
 </html>
