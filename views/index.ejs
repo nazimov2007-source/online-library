@@ -14,9 +14,14 @@
         <a href="/" class="nav__link nav__link--active">Главная</a>
         <a href="/catalog" class="nav__link">Каталог</a>
         
-        <!-- Проверка: если пользователь вошел, показываем профиль и кнопку выхода -->
+        <!-- Блок авторизации в шапке -->
         <% if (user) { %>
-            <span class="nav__link" style="color: var(--primary); font-weight: bold;">👤 <%= user.login %> (<%= user.role %>)</span>
+            <a href="/profile" class="nav__link" style="color: var(--primary); font-weight: bold;">👤 <%= user.login %></a>
+            
+            <% if (user.role === 'ADMIN') { %>
+                <a href="/admin" class="nav__link" style="color: orange; font-weight: bold;">👑 Админка</a>
+            <% } %>
+            
             <a href="/logout" class="nav__link nav__link--btn" style="background: #dc2626;">Выйти</a>
         <% } else { %>
             <a href="/login" class="nav__link">Вход</a>

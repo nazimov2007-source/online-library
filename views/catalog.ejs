@@ -16,7 +16,12 @@
         
         <!-- Блок авторизации в шапке -->
         <% if (user) { %>
-            <span class="nav__link" style="color: var(--primary); font-weight: bold;">👤 <%= user.login %> (<%= user.role %>)</span>
+            <a href="/profile" class="nav__link" style="color: var(--primary); font-weight: bold;">👤 <%= user.login %></a>
+            
+            <% if (user.role === 'ADMIN') { %>
+                <a href="/admin" class="nav__link" style="color: orange; font-weight: bold;">👑 Админка</a>
+            <% } %>
+            
             <a href="/logout" class="nav__link nav__link--btn" style="background: #dc2626;">Выйти</a>
         <% } else { %>
             <a href="/login" class="nav__link">Вход</a>
@@ -43,12 +48,12 @@
                   <div style="display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap;">
                       <a href="/book/<%= book.id %>" class="btn btn--primary" style="padding: 6px 12px; font-size: 13px;">Открыть</a>
                       
-                      <!-- Если пользователь вошел, показываем кнопку заявки -->
+                      <!-- Кнопка заявки для авторизованных -->
                       <% if (user) { %>
                           <a href="/request/<%= book.id %>" class="btn" style="padding: 6px 12px; font-size: 13px; background: #10b981; color: white;">Заявка</a>
                       <% } %>
 
-                      <!-- Если пользователь ADMIN, показываем кнопки управления -->
+                      <!-- Кнопки управления только для ADMIN -->
                       <% if (user && user.role === 'ADMIN') { %>
                           <a href="/edit/<%= book.id %>" class="btn" style="padding: 6px 12px; font-size: 13px; border: 1px solid #ccc; background: transparent; color: inherit;">Изменить</a>
                           <a href="/delete/<%= book.id %>" class="btn" style="padding: 6px 12px; font-size: 13px; color: #dc2626;" onclick="return confirm('Удалить книгу?')">Удалить</a>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Панель администратора — КнигоМир</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="/" class="logo">📚 КнигоМир</a>
+      <nav class="nav">
+        <a href="/" class="nav__link">Главная</a>
+        <a href="/catalog" class="nav__link">Каталог</a>
+        <span class="nav__link" style="color: var(--primary); font-weight: bold;">👑 ADMIN</span>
+        <a href="/logout" class="nav__link nav__link--btn" style="background: #dc2626;">Выйти</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 class="section-title">Управление заявками</h1>
+
+    <div style="max-width: 900px; margin: 0 auto; overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; background: var(--card);">
+        <thead>
+          <tr style="background: var(--bg-soft); border-bottom: 2px solid var(--border);">
+            <th style="padding: 12px; text-align: left;">ID</th>
+            <th style="padding: 12px; text-align: left;">Пользователь</th>
+            <th style="padding: 12px; text-align: left;">Книга</th>
+            <th style="padding: 12px; text-align: left;">Дата</th>
+            <th style="padding: 12px; text-align: left;">Статус</th>
+            <th style="padding: 12px; text-align: left;">Действие</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% requests.forEach(r => { %>
+            <tr style="border-bottom: 1px solid var(--border);">
+              <td style="padding: 12px;"><%= r.id %></td>
+              <td style="padding: 12px;"><%= r.fullname %> (<%= r.login %>)</td>
+              <td style="padding: 12px;"><%= r.title %></td>
+              <td style="padding: 12px;"><%= r.created_at %></td>
+              <td style="padding: 12px;">
+                <b style="color: <%= r.status === 'Выполнена' ? 'green' : (r.status === 'В работе' ? 'orange' : 'blue') %>;"><%= r.status %></b>
+              </td>
+              <td style="padding: 12px;">
+                <!-- Форма для смены статуса -->
+                <form action="/admin/status/<%= r.id %>" method="POST" style="display: flex; gap: 5px;">
+                  <select name="status" class="input" style="padding: 5px; width: auto;">
+                    <option value="Новая" <%= r.status === 'Новая' ? 'selected' : '' %>>Новая</option>
+                    <option value="В работе" <%= r.status === 'В работе' ? 'selected' : '' %>>В работе</option>
+                    <option value="Выполнена" <%= r.status === 'Выполнена' ? 'selected' : '' %>>Выполнена</option>
+                  </select>
+                  <button type="submit" class="btn btn--primary" style="padding: 5px 10px; font-size: 12px;">ОК</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <% if (requests.length === 0) { %>
+        <p style="text-align: center; padding: 20px;">Заявок пока нет.</p>
+      <% } %>
+    </div>
+  </main>
+</body>
+</html>

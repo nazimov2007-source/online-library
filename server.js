@@ -175,6 +175,94 @@ app.get('/logout', (req, res) => {
     });
 });
 
+// ================= ЗАЯВКИ ПОЛЬЗОВАТЕЛЕЙ =================
+
+// 1. Создание заявки
+app.get('/request/:bookId', (req, res) => {
+    if (!req.session.user) return res.redirect('/login');
+
+    const bookId = req.params.bookId;
+    const userId = req.session.user.id;
+
+    // Проверяем, нет ли уже активной заявки на эту книгу
+    const existing = db.prepare("SELECT * FROM requests WHERE user_id = ? AND book_id = ? AND status != 'Выполнена'").get(userId, bookId);
+    if (existing) {
+        return res.send("<h1 style='text-align:center; margin-top:50px;'>У вас уже есть активная заявка на эту книгу</h1><div style='text-align:center;'><a href='/catalog'>Вернуться в каталог</a></div>");
+    }
+
+    db.prepare("INSERT INTO requests (user_id, book_id) VALUES (?, ?)").run(userId, bookId);
+    res.redirect('/profile');
+});
+
+// 2. Личный кабинет
+app.get('/profile', (req, res) => {
+    if (!req.session.user) return res.redirect('/login');
+
+    const userId = req.session.user.id;
+    const requests = db.prepare(`
+        SELECT requests.*, books.title, books.author 
+        FROM requests 
+        JOIN books ON requests.book_id = books.id 
+        WHERE requests.user_id = ?
+        ORDER BY requests.created_at DESC
+    `).all(userId);
+
+    res.render('profile', { requests });
+});
+
+// 3. Удаление своей заявки (с защитой от подмены ID)
+app.get('/request/delete/:id', (req, res) => {
+    if (!req.session.user) return res.redirect('/login');
+
+    const requestId = req.params.id;
+    const userId = req.session.user.id;
+
+    const request = db.prepare("SELECT * FROM requests WHERE id = ?").get(requestId);
+
+    // Если заявки нет или она чужая (и это не админ) - отказ
+    if (!request || (request.user_id !== userId && req.session.user.role !== 'ADMIN')) {
+        return res.status(403).send("<h1 style='text-align:center; margin-top:50px; color:red;'>403 - Доступ запрещен. Это не ваша заявка!</h1><div style='text-align:center;'><a href='/profile'>Вернуться в профиль</a></div>");
+    }
+
+    db.prepare("DELETE FROM requests WHERE id = ?").run(requestId);
+    res.redirect('/profile');
+});
+
+// ================= ПАНЕЛЬ АДМИНИСТРАТОРА =================
+
+// 4. Админка
+app.get('/admin', (req, res) => {
+    if (!req.session.user || req.session.user.role !== 'ADMIN') {
+        return res.status(403).send("<h1 style='text-align:center; margin-top:50px; color:red;'>403 - Доступ запрещен. Вы не администратор!</h1><div style='text-align:center;'><a href='/catalog'>На главную</a></div>");
+    }
+
+    const requests = db.prepare(`
+        SELECT requests.*, users.login, users.fullname, books.title 
+        FROM requests 
+        JOIN users ON requests.user_id = users.id 
+        JOIN books ON requests.book_id = books.id 
+        ORDER BY requests.created_at DESC
+    `).all();
+
+    res.render('admin', { requests });
+});
+
+// 5. Смена статуса заявки
+app.post('/admin/status/:id', (req, res) => {
+    if (!req.session.user || req.session.user.role !== 'ADMIN') return res.redirect('/login');
+
+    const requestId = req.params.id;
+    const newStatus = req.body.status;
+
+    db.prepare("UPDATE requests SET status = ? WHERE id = ?").run(newStatus, requestId);
+    res.redirect('/admin');
+});
+
+// Запуск сервера
+app.listen(PORT, () => {
+    console.log(`Сервер запущен: http://localhost:${PORT}/catalog`);
+});
+
 // Запуск сервера
 app.listen(PORT, () => {
     console.log(`Сервер запущен: http://localhost:${PORT}/catalog`);

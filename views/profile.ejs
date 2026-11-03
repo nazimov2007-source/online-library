@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Мои заявки — КнигоМир</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="/" class="logo">📚 КнигоМир</a>
+      <nav class="nav">
+        <a href="/" class="nav__link">Главная</a>
+        <a href="/catalog" class="nav__link">Каталог</a>
+        <span class="nav__link" style="color: var(--primary); font-weight: bold;">👤 <%= user.login %></span>
+        <a href="/logout" class="nav__link nav__link--btn" style="background: #dc2626;">Выйти</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 class="section-title">Мои заявки на книги</h1>
+
+    <% if (requests.length === 0) { %>
+      <p style="text-align: center; font-size: 1.2rem;">У вас пока нет заявок. Перейдите в <a href="/catalog" style="color: var(--primary);">каталог</a>, чтобы выбрать книгу.</p>
+    <% } else { %>
+      <div style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px;">
+        <% requests.forEach(r => { %>
+          <div style="border: 1px solid var(--border); border-radius: 8px; padding: 15px; display: flex; justify-content: space-between; align-items: center; background: var(--card);">
+            <div>
+              <h3 style="margin: 0 0 5px 0;"><%= r.title %></h3>
+              <p style="margin: 0; color: var(--muted);">Автор: <%= r.author %></p>
+              <p style="margin: 5px 0 0 0;">Статус: <b style="color: <%= r.status === 'Выполнена' ? 'green' : (r.status === 'В работе' ? 'orange' : 'blue') %>;"><%= r.status %></b></p>
+            </div>
+            <div>
+              <!-- Кнопка удаления заявки (передает ID заявки) -->
+              <a href="/request/delete/<%= r.id %>" class="btn" style="background: #dc2626; color: white; padding: 8px 15px;" onclick="return confirm('Удалить заявку?')">Отменить</a>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </main>
+</body>
+</html>
